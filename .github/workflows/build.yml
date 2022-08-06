@@ -12,16 +12,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup Flutter
         uses: britannio/action-install-flutter@v1
-      - name: Get Packages
-        run: flutter pub get
-      - name: Build Windows
-        run: flutter build windows --release
-      - name: Build Installer
-        run: flutter pub run msix:build
-      - uses: actions/upload-artifact@v3
+      - name: install dependencies
+        uses: steebchen/flutter@v1.1.0
         with:
-          name: ModVersionCheckerExe
-          path: build/windows/runner/Release/mod_version_checker.exe
+          args: pub get
+      - name: Build Installer
+        uses: steebchen/flutter@v1.1.0
+        with:
+          args: pub run msix:build
       - uses: actions/upload-artifact@v3
         with:
           name: WindowsInstaller
@@ -32,6 +30,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup Flutter
         uses: britannio/action-install-flutter@v1
+      - name: Setup Ninja
+        uses: ashutoshvarma/setup-ninja@master
       - name: Get Packages
         run: flutter pub get
       - name: Build Linux
@@ -49,5 +49,5 @@ jobs:
       - name: Get Packages
         run: flutter pub get
       - name: Build Linux
-        run: flutter build macos --release
+        run: flutter build macos --release -v
 
