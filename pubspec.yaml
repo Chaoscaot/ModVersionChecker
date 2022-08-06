@@ -1,0 +1,43 @@
+name: mod_version_checker
+description: Checks the version of Fabric mods and checks if there is a new version on Modrinth.
+
+publish_to: 'none'
+
+version: 1.0.0
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_hooks: ^0.18.0
+  hooks_riverpod: ^2.0.0-dev.9
+  dio: ^4.0.6
+  path_provider: ^2.0.11
+  intl: ^0.17.0
+  archive: ^3.3.1
+  path: ^1.8.1
+  file_picker: ^5.0.1
+  json_annotation: ^4.4.0
+
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 5c51870ced62a00e809ba4b81a846a052d241c9f
+  version: ^3.0.2
+  package_info_plus: ^1.4.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  build_runner: ^2.0.0
+  json_serializable: ^6.0.0
+  msix: ^3.6.2
+
+flutter:
+  uses-material-design: true

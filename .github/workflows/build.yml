@@ -1,0 +1,53 @@
+name: build
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: britannio/action-install-flutter@v1
+      - name: Get Packages
+        run: flutter pub get
+      - name: Build Windows
+        run: flutter build windows --release
+      - name: Build Installer
+        run: flutter pub run msix:build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ModVersionCheckerExe
+          path: build/windows/runner/Release/mod_version_checker.exe
+      - uses: actions/upload-artifact@v3
+        with:
+          name: WindowsInstaller
+          path: build/windows/runner/Release/mod_version_checker.msix
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: britannio/action-install-flutter@v1
+      - name: Get Packages
+        run: flutter pub get
+      - name: Build Linux
+        run: flutter build linux --release
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ModVersionCheckerLinux
+          path: build/linux/release/bungle/mod_version_checker
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Flutter
+        uses: britannio/action-install-flutter@v1
+      - name: Get Packages
+        run: flutter pub get
+      - name: Build Linux
+        run: flutter build macos --release
+
